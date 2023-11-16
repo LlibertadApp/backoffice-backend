@@ -4,4 +4,4 @@ enum EnumEnv {
     DEV = 'dev',
 }
 
-export default EnumEnv;
+export default EnumEnv

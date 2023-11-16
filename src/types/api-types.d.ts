@@ -1,9 +1,9 @@
 export interface LoginRequestBody {
-  username: string;
-  password: string;
+    username: string
+    password: string
 }
 
 export interface LoginResponseBody {
-  status: bool;
-  token: string;
+    status: bool
+    token: string
 }
