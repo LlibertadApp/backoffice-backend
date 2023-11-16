@@ -18,6 +18,9 @@ export const handler = async (
 ): Promise<any> => {
     global.cb = callback
 
+    // This enables Lambda function to complete
+    context.callbackWaitsForEmptyEventLoop = false
+
     const payload = JSON.parse(event.body!) as LoginRequestBody
 
     try {
