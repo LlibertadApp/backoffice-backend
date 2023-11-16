@@ -13,7 +13,7 @@ import jwt from 'jsonwebtoken'
 
 export const handler = async (
     event: APIGatewayEvent,
-    _context: Context,
+    context: Context,
     callback: Callback
 ): Promise<any> => {
     global.cb = callback
