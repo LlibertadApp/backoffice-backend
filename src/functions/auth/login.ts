@@ -9,6 +9,7 @@ import { User } from '@/helpers/models/entities/userEntity'
 import { login } from '@/helpers/daos/userDao'
 import { LoginRequestBody, LoginResponseBody } from '@/types/api-types.d'
 import { httpErrors, httpStatusCodes } from '@/_core/configs/errorConstants'
+import jwt from 'jsonwebtoken'
 
 export const handler = async (
     event: APIGatewayEvent,
@@ -31,19 +32,27 @@ export const handler = async (
         const { username, password } = payload
         const user = await login(username, password)
 
-        console.log('USER2', user)
-
         if (user == null) {
             // 401 UNAUTHORIZED
             return response({
                 code: httpStatusCodes.UNAUTHORIZED,
                 err: httpErrors.UNAUTHORIZED,
+                data: {
+                  status: 'FAILURE',
+                }
             })
         }
 
+        const tokenPayload = {
+          iat: Math.floor(Date.now() / 1000) - 30,
+          exp: Math.floor(Date.now() / 1000) + 3600,
+        }
+
+        const token = jwt.sign(tokenPayload, process.env.JWT_KEY);
+
         const res: LoginResponseBody = {
             status: 'SUCCESS',
-            token: 'asdfasdf',
+            token: token,
         }
 
         // 200 OK
