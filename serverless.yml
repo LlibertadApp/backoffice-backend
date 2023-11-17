@@ -12,6 +12,17 @@ provider:
   httpApi:
     name: "Backoffice"
     cors: true
+    authorizers:
+      jwtAuthorizer:
+        type: jwt
+        name: jwtAuthorizer
+        functionName: jwtAuthorizer
+        # issuerUrl: ${env:FIREBASE_ISSUER_URL}
+        # audience:
+        #   - ${env:FIREBASE_AUDIENCE}
+        resultTtlInSeconds: 300
+        identitySource:
+          - $request.header.Authorization
 
 plugins:
   - serverless-auto-swagger
@@ -43,6 +54,9 @@ package:
     - ./src/**.ts
 
 functions:
+  jwtAuthorizer:
+    handler: src/functions/authorizer/handler.handler
+    description: Authorizer for JWT integration
   login:
     name: "login"
     description: "Login with credentials"
@@ -52,3 +66,14 @@ functions:
           method: POST
           path: /v1/auth/login
           bodyType: "LoginRequestBody"
+  users-create:
+    name: "users-create"
+    description: "Create user and associates voting tables"
+    handler: src/functions/users/create.handler
+    events:
+      - httpApi:
+          method: POST
+          path: /v1/users
+          authorizer:
+            name: jwtAuthorizer
+            type: jwt
