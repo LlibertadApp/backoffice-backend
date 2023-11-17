@@ -51,7 +51,7 @@ export const handler = async (
           exp: Math.floor(Date.now() / 1000) + 3600,
         }
 
-        const token = jwt.sign(tokenPayload, process.env.JWT_KEY);
+        const token = jwt.sign(tokenPayload, process.env.BACKOFFICE_JWT_KEY!);
 
         const res: LoginResponseBody = {
             status: 'SUCCESS',
