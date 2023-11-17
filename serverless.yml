@@ -47,7 +47,6 @@ functions:
     name: "login"
     description: "Login with credentials"
     handler: src/functions/auth/login.handler
-    timeout: 15
     events:
       - httpApi:
           method: POST
