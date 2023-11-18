@@ -18,13 +18,13 @@ Dotenv.config({
 }).parsed;
 
 console.log(
-	`TYPEORM ENVIRONMENT: ${process.env.LBERTAPP_ENV}\nDATABASE CONNECTION: ${process.env.DATABASE_RO_HOST}`
+	`TYPEORM ENVIRONMENT: ${process.env.LBERTAPP_ENV}\nDATABASE CONNECTION: ${process.env.DATABASE_RW_HOST}`
 );
 
-export const ConnectionSource = new DataSource({
+export const ConnectionSourceRW = new DataSource({
 	migrationsTableName: 'migrations',
 	type: process.env.DATABASE_TYPE as any,
-	host: process.env.DATABASE_RO_HOST,
+	host: process.env.DATABASE_RW_HOST,
 	port: Number(process.env.DATABASE_PORT),
 	username: process.env.DATABASE_USER,
 	password: process.env.DATABASE_PASS,

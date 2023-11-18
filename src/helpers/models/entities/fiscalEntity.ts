@@ -2,11 +2,11 @@ import {
     Column,
     Entity,
     Index,
-    JoinColumn,
-    OneToMany,
+    JoinTable,
+    ManyToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm'
-import * as bcrypt from 'bcryptjs'
+
 import { GenericTable } from './genericTable'
 import { VotingTable } from './votingTableEntity'
 
@@ -19,12 +19,16 @@ export class Fiscal extends GenericTable {
     @Column({ nullable: false, name: 'created_by' })
     public createdBy: string
 
-    @Column({ nullable: false, length: 50, name: 'first_name' })
-    private firstName: string
+    @Column({ nullable: false, length: 50, name: 'full_name' })
+    private fullName: string
 
-    @Column({ nullable: false, length: 50, name: 'last_name' })
-    private lastName: string
+    @Column({ nullable: false, length: 255 })
+    private email: string
 
-    @OneToMany(() => VotingTable, (votingTable) => votingTable.fiscalId)
-    mesas: VotingTable[]
+    @Column({ nullable: false, length: 80, name: 'phone_no' })
+    private phoneNo: string
+
+    @ManyToMany(() => VotingTable, (votingTable) => votingTable.fiscals)
+    @JoinTable()
+    votingTables: VotingTable[]
 }

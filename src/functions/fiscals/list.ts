@@ -1,10 +1,12 @@
 /// <reference path="../../symbols.d.ts" />
 import 'reflect-metadata'
 import { APIGatewayEvent, Context, Callback } from 'aws-lambda'
-import { object, string } from 'yup'
+import { object, string, array } from 'yup'
 
 import response from '@/helpers/response'
 import { httpErrors, httpStatusCodes } from '@/_core/configs/errorConstants'
+import { getFiscalsByOwner } from '@/helpers/daos/fiscalDao'
+import { FiscalCreateRequestBody } from '@/types/api-types.d'
 
 export const handler = async (
     event: APIGatewayEvent,
@@ -13,13 +15,17 @@ export const handler = async (
 ): Promise<any> => {
     global.cb = callback
 
+    // This enables Lambda function to complete
+    context.callbackWaitsForEmptyEventLoop = false
+
     try {
-        // SARAZA
-        // ...
+        const userId = event.requestContext.authorizer!.jwt.claims.sub
+        const fiscals = await getFiscalsByOwner(userId)
+
         // 200 OK
         return response({
             code: httpStatusCodes.OK,
-            data: {},
+            data: fiscals,
         })
     } catch (err: any) {
         return response({ err })

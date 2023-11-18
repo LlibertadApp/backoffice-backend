@@ -66,14 +66,37 @@ functions:
           method: POST
           path: /v1/auth/login
           bodyType: "LoginRequestBody"
-  users-create:
-    name: "users-create"
-    description: "Create user and associates voting tables"
-    handler: src/functions/users/create.handler
+  fiscals-create:
+    name: "fiscals-create"
+    description: "Create fiscal user and associates voting tables"
+    handler: src/functions/fiscals/create.handler
     events:
       - httpApi:
           method: POST
-          path: /v1/users
+          path: /v1/fiscals
+          authorizer:
+            name: jwtAuthorizer
+            type: jwt
+          bodyType: "FiscalCreateRequestBody"
+  fiscals-get:
+    name: "fiscals-get"
+    description: "Get fiscal information"
+    handler: src/functions/fiscals/get.handler
+    events:
+      - httpApi:
+          method: get
+          path: /v1/fiscals/{id}
+          authorizer:
+            name: jwtAuthorizer
+            type: jwt
+  fiscals-list:
+    name: "fiscals-get"
+    description: "Get fiscals owned by the user"
+    handler: src/functions/fiscals/list.handler
+    events:
+      - httpApi:
+          method: get
+          path: /v1/fiscals
           authorizer:
             name: jwtAuthorizer
             type: jwt
