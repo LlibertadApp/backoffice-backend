@@ -29,7 +29,8 @@ jobs:
     - name: Build .env with Python
       run: |
         VARIABLES_JSON='{
-          "DATABASE_HOST": "${{ vars.DATABASE_HOST }}",
+          "DATABASE_RO_HOST": "${{ vars.DATABASE_RO_HOST }}",
+          "DATABASE_RW_HOST": "${{ vars.DATABASE_RW_HOST }}",
           "DATABASE_PORT": "${{ vars.DATABASE_PORT }}",
           "DATABASE_USER": "${{ vars.DATABASE_USER }}",
           "DATABASE_PASS": "${{ secrets.DATABASE_PASS }}",
