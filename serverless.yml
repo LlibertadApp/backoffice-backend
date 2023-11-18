@@ -11,15 +11,15 @@ provider:
     cors: true
     authorizers:
       jwtAuthorizer:
-        type: jwt
-        name: jwtAuthorizer
+        type: request
+        # name: jwtAuthorizer
         functionName: jwtAuthorizer
-        issuerUrl: ${env:FIREBASE_ISSUER_URL}
-        audience:
-          - ${env:FIREBASE_AUDIENCE}
-        resultTtlInSeconds: 300
-        identitySource:
-          - $request.header.Authorization
+        # issuerUrl: ${env:FIREBASE_ISSUER_URL}
+        # audience:
+        #   - ${env:FIREBASE_AUDIENCE}
+        # resultTtlInSeconds: 300
+        # identitySource:
+        #   - $request.header.Authorization
 
 plugins:
   - serverless-auto-swagger
