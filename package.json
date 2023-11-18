@@ -13,8 +13,8 @@
     "preapi:deploy": "rm -rf ./.serverless",
     "deploy": "sls deploy",
     "remove": "sls remove",
-    "typeorm": "typeorm-ts-node-commonjs -d ./ormconfig.ts",
-    "typeorm:local": "typeorm-ts-node-commonjs -d ./ormconfig.ts migration:run",
+    "typeorm": "typeorm-ts-node-commonjs -d ./ormconfig-rw.ts",
+    "typeorm:local": "typeorm-ts-node-commonjs -d ./ormconfig-rw.ts migration:run",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md}\" --config ./.prettierrc.json"

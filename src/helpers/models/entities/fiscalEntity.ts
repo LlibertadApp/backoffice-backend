@@ -22,10 +22,10 @@ export class Fiscal extends GenericTable {
     @Column({ nullable: false, length: 50, name: 'full_name' })
     private fullName: string
 
-    @Column({ nullable: false, length: 255 })
+    @Column({ length: 255 })
     private email: string
 
-    @Column({ nullable: false, length: 80, name: 'phone_no' })
+    @Column({ length: 80, name: 'phone_no' })
     private phoneNo: string
 
     @ManyToMany(() => VotingTable, (votingTable) => votingTable.fiscals)

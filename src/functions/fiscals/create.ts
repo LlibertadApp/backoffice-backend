@@ -22,8 +22,8 @@ export const handler = async (
 
     const schema = object({
         fullName: string().required(),
-        email: string().email().required(),
-        phoneNo: string().required(),
+        email: string().email(),
+        phoneNo: string(),
         votingTables: array().of(string()),
     })
 

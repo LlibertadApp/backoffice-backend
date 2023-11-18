@@ -7,11 +7,7 @@ import { Role } from '@/helpers/models/entities/roleEntity';
 import { Fiscal } from '@/helpers/models/entities/fiscalEntity';
 import { VotingTable } from '@/helpers/models/entities/votingTableEntity';
 import { EnvironmentSelector } from '@/_core/configs/environmentSelector';
-import { InitialMigration1700107297580 } from '@/helpers/migrations/1700107297580-initialMigration';
-import { VotingTables1700265198631 } from '@/helpers/migrations/1700265198631-votingTables';
-import { Fiscals1700265323259 } from '@/helpers/migrations/1700265323259-fiscals';
-import { Relations1700270356250 } from '@/helpers/migrations/1700270356250-relations';
-import { Relations1700270629419 } from '@/helpers/migrations/1700270629419-relations';
+import { Initial1700280278940 } from '@/helpers/migrations/1700280278940-initial';
 
 Dotenv.config({
 	path: `${path.join(__dirname)}/${EnvironmentSelector()}`,
@@ -45,10 +41,6 @@ export const ConnectionSource = new DataSource({
 		VotingTable,
 	],
 	migrations: [
-		InitialMigration1700107297580,
-		VotingTables1700265198631,
-		Fiscals1700265323259,
-		Relations1700270356250,
-		Relations1700270629419,
+		Initial1700280278940,
 	],
 });

@@ -27,15 +27,15 @@ const response = ({
     let body: { data?: null | [] | {}; error?: any | any } = { data }
     if (err) {
         log.error(err)
-        delete body.data
+        // delete body.data
         code = code && code != 200 ? code : 400
-        body.error = err instanceof Error ? { message: err.message } : err
+        body.data = err instanceof Error ? { message: err.message } : err
     }
 
     // @ts-ignore global cb
     return cb(null, {
         statusCode: code,
-        body: JSON.stringify(body),
+        body: JSON.stringify(body.data),
         headers,
     })
 }
