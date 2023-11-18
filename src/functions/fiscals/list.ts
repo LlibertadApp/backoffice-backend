@@ -19,8 +19,9 @@ export const handler = async (
     context.callbackWaitsForEmptyEventLoop = false
 
     try {
-        console.log('COSO', event)
-        const userId = event.requestContext.authorizer!.jwt.claims.sub
+        console.log('COSO', event.requestContext.authorizer!.lambda)
+
+        const userId = event.requestContext.authorizer!.lambda.decodedToken.sub
         const fiscals = await getFiscalsByOwner(userId)
 
         // 200 OK
