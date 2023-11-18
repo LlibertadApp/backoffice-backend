@@ -15,6 +15,10 @@ export const handler = async (
 ): Promise<any> => {
     global.cb = callback
 
+    return response({
+      data: event
+    })
+
     // This enables Lambda function to complete
     context.callbackWaitsForEmptyEventLoop = false
 
