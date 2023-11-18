@@ -53,7 +53,8 @@ export const handler = async (
         const votingTables = fiscal.votingTables.map(i => i.id)
 
         const customToken = await admin.auth().createCustomToken(fiscal!.id, {
-          mesas: votingTables
+          votingTables,
+          fullName: fiscal.fullName,
         });
 
         // 200 OK

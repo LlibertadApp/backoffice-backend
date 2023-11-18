@@ -20,7 +20,7 @@ export class Fiscal extends GenericTable {
     public createdBy: string
 
     @Column({ nullable: false, length: 50, name: 'full_name' })
-    private fullName: string
+    public fullName: string
 
     @Column({ length: 255 })
     private email: string
