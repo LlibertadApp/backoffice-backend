@@ -94,9 +94,9 @@ functions:
       - httpApi:
           method: get
           path: /v1/fiscals/{id}
-          authorizer:
-            name: jwtAuthorizer
-            type: jwt
+          # authorizer:
+          #   name: jwtAuthorizer
+          #   type: jwt
     vpc:
       securityGroupIds:
         - ${env:SECURITY_GROUP_ID_1}
@@ -111,9 +111,9 @@ functions:
       - httpApi:
           method: get
           path: /v1/fiscals
-          authorizer:
-            name: jwtAuthorizer
-            type: jwt
+          # authorizer:
+          #   name: jwtAuthorizer
+          #   type: jwt
     vpc:
       securityGroupIds:
         - ${env:SECURITY_GROUP_ID_1}
@@ -128,9 +128,9 @@ functions:
       - httpApi:
           method: post
           path: /v1/fiscals/{id}/authorize
-          authorizer:
-            name: jwtAuthorizer
-            type: jwt
+          # authorizer:
+          #   name: jwtAuthorizer
+          #   type: jwt
     vpc:
       securityGroupIds:
         - ${env:SECURITY_GROUP_ID_1}
