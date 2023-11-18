@@ -58,7 +58,9 @@ export const handler = async (
             )
         }
 
-        const token = event.headers['Authorization']
+        console.log('headers', event.headers)
+
+        const token = event.headers['authorization']
 
         if (!token) {
             console.error(authorizerErrors.UNDEFINED_AUTHORIZATION_HEADER)
