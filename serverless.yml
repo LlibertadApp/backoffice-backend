@@ -100,3 +100,14 @@ functions:
           authorizer:
             name: jwtAuthorizer
             type: jwt
+  fiscals-authorize:
+    name: "fiscals-authorize"
+    description: "Get authorization link"
+    handler: src/functions/fiscals/authorize.handler
+    events:
+      - httpApi:
+          method: post
+          path: /v1/fiscals/{id}/authorize
+          authorizer:
+            name: jwtAuthorizer
+            type: jwt
