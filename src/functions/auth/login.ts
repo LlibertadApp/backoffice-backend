@@ -50,8 +50,6 @@ export const handler = async (
             iat: Math.floor(Date.now() / 1000) - 30,
             exp: Math.floor(Date.now() / 1000) + 3600,
             sub: user.id,
-            iss: process.env.FIREBASE_ISSUER_URL!,
-            aud: process.env.FIREBASE_AUDIENCE!,
         }
 
         const token = jwt.sign(tokenPayload, process.env.BACKOFFICE_JWT_KEY!)

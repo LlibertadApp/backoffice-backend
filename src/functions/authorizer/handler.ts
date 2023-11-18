@@ -35,11 +35,13 @@ export function generatePolicyDocument(
 export function generateAuthorizeOutput(
     principalId: string,
     effect: EffectType,
-    routeArn: string
+    routeArn: string,
+    context?: any,
 ): APIGatewayAuthorizerResult {
     return {
         principalId,
         policyDocument: generatePolicyDocument(effect, routeArn),
+        context,
     }
 }
 
@@ -58,7 +60,9 @@ export const handler = async (
             )
         }
 
-        const token = event.headers['Authorization']
+        console.log('headers', event.headers)
+
+        const token = event.headers['authorization']
 
         if (!token) {
             console.error(authorizerErrors.UNDEFINED_AUTHORIZATION_HEADER)
@@ -75,7 +79,10 @@ export const handler = async (
         return generateAuthorizeOutput(
             principalId,
             PolicyEffect.Allow,
-            routeArn
+            routeArn,
+            {
+              decodedToken: decoded,
+            },
         )
     } catch (error) {
         console.error(authorizerErrors.UNEXPECTED_AUTHORIZE_ERROR, error)

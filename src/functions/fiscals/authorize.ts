@@ -38,9 +38,16 @@ export const handler = async (
             })
         }
 
+        console.log('COSO', event)
+
         const userId = event.requestContext.authorizer!.jwt.claims.sub
 
         if (fiscal.createdBy !== userId) {
+            console.log('UNAUTHORIZED', {
+              era: event.requestContext.authorizer,
+              userId,
+              fiscal,
+            })
             // 401 UNAUTHORIZED
             return response({
                 code: httpStatusCodes.UNAUTHORIZED,
