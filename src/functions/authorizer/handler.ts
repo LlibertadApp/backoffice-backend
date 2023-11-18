@@ -36,7 +36,7 @@ export function generateAuthorizeOutput(
     principalId: string,
     effect: EffectType,
     routeArn: string,
-    context: any,
+    context?: any,
 ): APIGatewayAuthorizerResult {
     return {
         principalId,
