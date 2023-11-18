@@ -37,7 +37,7 @@ export const handler = async (
             })
         }
 
-        const userId = event.requestContext.authorizer!.jwt.claims.sub
+        const userId = event.requestContext.authorizer!.lambda.decodedToken.sub
 
         if (fiscal.createdBy !== userId) {
             // 401 UNAUTHORIZED

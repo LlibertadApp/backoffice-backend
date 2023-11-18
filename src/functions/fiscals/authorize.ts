@@ -38,9 +38,7 @@ export const handler = async (
             })
         }
 
-        console.log('COSO', event)
-
-        const userId = event.requestContext.authorizer!.jwt.claims.sub
+        const userId = event.requestContext.authorizer!.lambda.decodedToken.sub
 
         if (fiscal.createdBy !== userId) {
             console.log('UNAUTHORIZED', {

@@ -19,8 +19,6 @@ export const handler = async (
     context.callbackWaitsForEmptyEventLoop = false
 
     try {
-        console.log('COSO', event.requestContext.authorizer!.lambda)
-
         const userId = event.requestContext.authorizer!.lambda.decodedToken.sub
         const fiscals = await getFiscalsByOwner(userId)
 

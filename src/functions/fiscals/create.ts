@@ -35,7 +35,7 @@ export const handler = async (
             fullName: payload.fullName,
             email: payload.email,
             phoneNo: payload.phoneNo,
-            createdBy: event.requestContext.authorizer!.jwt.claims.sub,
+            createdBy: event.requestContext.authorizer!.lambda.decodedToken.sub
         }
 
         const fiscal = await createFiscal(dataFiscal, payload.votingTables)
