@@ -18,8 +18,8 @@ provider:
         # audience:
         #   - ${env:FIREBASE_AUDIENCE}
         # resultTtlInSeconds: 300
-        # identitySource:
-        #   - $request.header.Authorization
+        identitySource:
+          - $request.header.Authorization
 
 plugins:
   - serverless-auto-swagger
