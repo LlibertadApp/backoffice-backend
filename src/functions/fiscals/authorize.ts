@@ -41,6 +41,10 @@ export const handler = async (
         const userId = event.requestContext.authorizer!.jwt.claims.sub
 
         if (fiscal.createdBy !== userId) {
+            console.log('UNAUTHORIZED', {
+              userId
+              fiscal,
+            })
             // 401 UNAUTHORIZED
             return response({
                 code: httpStatusCodes.UNAUTHORIZED,
