@@ -17,9 +17,9 @@ provider:
         type: jwt
         name: jwtAuthorizer
         functionName: jwtAuthorizer
-        # issuerUrl: ${env:FIREBASE_ISSUER_URL}
-        # audience:
-        #   - ${env:FIREBASE_AUDIENCE}
+        issuerUrl: ${env:FIREBASE_ISSUER_URL}
+        audience:
+          - ${env:FIREBASE_AUDIENCE}
         resultTtlInSeconds: 300
         identitySource:
           - $request.header.Authorization
