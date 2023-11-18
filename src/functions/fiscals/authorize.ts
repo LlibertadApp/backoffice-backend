@@ -42,6 +42,7 @@ export const handler = async (
 
         if (fiscal.createdBy !== userId) {
             console.log('UNAUTHORIZED', {
+              era: event.requestContext.authorizer,
               userId
               fiscal,
             })
