@@ -35,11 +35,13 @@ export function generatePolicyDocument(
 export function generateAuthorizeOutput(
     principalId: string,
     effect: EffectType,
-    routeArn: string
+    routeArn: string,
+    context: any,
 ): APIGatewayAuthorizerResult {
     return {
         principalId,
         policyDocument: generatePolicyDocument(effect, routeArn),
+        context,
     }
 }
 
@@ -77,7 +79,10 @@ export const handler = async (
         return generateAuthorizeOutput(
             principalId,
             PolicyEffect.Allow,
-            routeArn
+            routeArn,
+            {
+              decodedToken: decoded,
+            },
         )
     } catch (error) {
         console.error(authorizerErrors.UNEXPECTED_AUTHORIZE_ERROR, error)
