@@ -19,6 +19,7 @@ export const handler = async (
     context.callbackWaitsForEmptyEventLoop = false
 
     try {
+        console.log('COSO', event)
         const userId = event.requestContext.authorizer!.jwt.claims.sub
         const fiscals = await getFiscalsByOwner(userId)
 
