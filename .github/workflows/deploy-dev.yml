@@ -29,7 +29,8 @@ jobs:
     - name: Build .env with Python
       run: |
         VARIABLES_JSON='{
-          "DATABASE_HOST": "${{ vars.DATABASE_HOST }}",
+          "DATABASE_RO_HOST": "${{ vars.DATABASE_RO_HOST }}",
+          "DATABASE_RW_HOST": "${{ vars.DATABASE_RW_HOST }}",
           "DATABASE_PORT": "${{ vars.DATABASE_PORT }}",
           "DATABASE_USER": "${{ vars.DATABASE_USER }}",
           "DATABASE_PASS": "${{ secrets.DATABASE_PASS }}",
@@ -70,3 +71,8 @@ jobs:
       env:
         FIREBASE_ISSUER_URL: ${{ vars.FIREBASE_ISSUER_URL }}
         FIREBASE_AUDIENCE: ${{ vars.FIREBASE_AUDIENCE }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+        SECURITY_GROUP_ID_1: ${{ vars.SECURITY_GROUP_ID_1}}
+        SUBNET_ID_1: ${{ vars.SUBNET_ID_1}}
+        SUBNET_ID_2: ${{ vars.SUBNET_ID_2}}
+        SUBNET_ID_3: ${{ vars.SUBNET_ID_3}}
