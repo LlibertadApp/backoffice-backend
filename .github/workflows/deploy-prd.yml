@@ -71,3 +71,9 @@ jobs:
       env:
         FIREBASE_ISSUER_URL: ${{ vars.FIREBASE_ISSUER_URL }}
         FIREBASE_AUDIENCE: ${{ vars.FIREBASE_AUDIENCE }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+        SECURITY_GROUP_ID_1: ${{ vars.SECURITY_GROUP_ID_1}}
+        SUBNET_ID_1: ${{ vars.SUBNET_ID_1}}
+        SUBNET_ID_2: ${{ vars.SUBNET_ID_2}}
+        SUBNET_ID_3: ${{ vars.SUBNET_ID_3}}
+

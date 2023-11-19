@@ -76,3 +76,4 @@ jobs:
         SUBNET_ID_1: ${{ vars.SUBNET_ID_1}}
         SUBNET_ID_2: ${{ vars.SUBNET_ID_2}}
         SUBNET_ID_3: ${{ vars.SUBNET_ID_3}}
+
