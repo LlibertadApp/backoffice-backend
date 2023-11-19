@@ -6,12 +6,20 @@ provider:
   deploymentMethod: direct
   region: us-east-2
   runtime: nodejs18.x
-  deploymentBucket:
-    blockPublicAccess: true
-    serverSideEncryption: AES256
   httpApi:
     name: "Backoffice"
     cors: true
+    authorizers:
+      jwtAuthorizer:
+        type: request
+        # name: jwtAuthorizer
+        functionName: jwtAuthorizer
+        # issuerUrl: ${env:FIREBASE_ISSUER_URL}
+        # audience:
+        #   - ${env:FIREBASE_AUDIENCE}
+        # resultTtlInSeconds: 300
+        identitySource:
+          - $request.header.Authorization
 
 plugins:
   - serverless-auto-swagger
@@ -43,8 +51,10 @@ package:
     - ./src/**.ts
 
 functions:
+  jwtAuthorizer:
+    handler: src/functions/authorizer/handler.handler
+    description: Authorizer for JWT integration
   login:
-    name: "login"
     description: "Login with credentials"
     handler: src/functions/auth/login.handler
     events:
@@ -52,3 +62,79 @@ functions:
           method: POST
           path: /v1/auth/login
           bodyType: "LoginRequestBody"
+    vpc:
+      securityGroupIds:
+        - ${env:SECURITY_GROUP_ID_1}
+      subnetIds:
+        - ${env:SUBNET_ID_1}
+        - ${env:SUBNET_ID_2}
+        - ${env:SUBNET_ID_3}
+  fiscals-create:
+    description: "Create fiscal user and associates voting tables"
+    handler: src/functions/fiscals/create.handler
+    events:
+      - httpApi:
+          method: POST
+          path: /v1/fiscals
+          authorizer:
+            name: jwtAuthorizer
+            type: jwt
+          bodyType: "FiscalCreateRequestBody"
+    vpc:
+      securityGroupIds:
+        - ${env:SECURITY_GROUP_ID_1}
+      subnetIds:
+        - ${env:SUBNET_ID_1}
+        - ${env:SUBNET_ID_2}
+        - ${env:SUBNET_ID_3}
+  fiscals-get:
+    description: "Get fiscal information"
+    handler: src/functions/fiscals/get.handler
+    events:
+      - httpApi:
+          method: get
+          path: /v1/fiscals/{id}
+          authorizer:
+            name: jwtAuthorizer
+            type: jwt
+    vpc:
+      securityGroupIds:
+        - ${env:SECURITY_GROUP_ID_1}
+      subnetIds:
+        - ${env:SUBNET_ID_1}
+        - ${env:SUBNET_ID_2}
+        - ${env:SUBNET_ID_3}
+  fiscals-list:
+    description: "Get fiscals owned by the user"
+    handler: src/functions/fiscals/list.handler
+    events:
+      - httpApi:
+          method: get
+          path: /v1/fiscals
+          authorizer:
+            name: jwtAuthorizer
+            type: jwt
+    vpc:
+      securityGroupIds:
+        - ${env:SECURITY_GROUP_ID_1}
+      subnetIds:
+        - ${env:SUBNET_ID_1}
+        - ${env:SUBNET_ID_2}
+        - ${env:SUBNET_ID_3}
+  fiscals-authorize:
+    description: "Get authorization link"
+    handler: src/functions/fiscals/authorize.handler
+    events:
+      - httpApi:
+          method: post
+          path: /v1/fiscals/{id}/authorize
+          authorizer:
+            name: jwtAuthorizer
+            type: jwt
+    vpc:
+      securityGroupIds:
+        - ${env:SECURITY_GROUP_ID_1}
+      subnetIds:
+        - ${env:SUBNET_ID_1}
+        - ${env:SUBNET_ID_2}
+        - ${env:SUBNET_ID_3}

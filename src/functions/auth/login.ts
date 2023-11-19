@@ -13,7 +13,7 @@ import jwt from 'jsonwebtoken'
 
 export const handler = async (
     event: APIGatewayEvent,
-    _context: Context,
+    context: Context,
     callback: Callback
 ): Promise<any> => {
     global.cb = callback
@@ -41,17 +41,18 @@ export const handler = async (
                 code: httpStatusCodes.UNAUTHORIZED,
                 err: httpErrors.UNAUTHORIZED,
                 data: {
-                  status: 'FAILURE',
-                }
+                    status: 'FAILURE',
+                },
             })
         }
 
         const tokenPayload = {
-          iat: Math.floor(Date.now() / 1000) - 30,
-          exp: Math.floor(Date.now() / 1000) + 3600,
+            iat: Math.floor(Date.now() / 1000) - 30,
+            exp: Math.floor(Date.now() / 1000) + 3600,
+            sub: user.id,
         }
 
-        const token = jwt.sign(tokenPayload, process.env.JWT_KEY);
+        const token = jwt.sign(tokenPayload, process.env.BACKOFFICE_JWT_KEY!)
 
         const res: LoginResponseBody = {
             status: 'SUCCESS',
